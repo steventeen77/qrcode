@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRCODE ASN MINSEL - Verifikasi Kartu ASN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo-container">
+                <img src="/logo-minsel.png" alt="Logo Minsel" class="header-logo">
+                <div class="header-text">
+                    <h1>ASN MINSEL</h1>
+                    <p>Kabupaten Minahasa Selatan</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero glass">
+                <div class="hero-content">
+                    <h2>Verifikasi Kartu ASN</h2>
+                    <p>Unggah foto kartu ASN Anda untuk membaca QR Code dan membuat ulang dengan branding resmi.</p>
+                    
+                    <div class="upload-zone" id="drop-zone">
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <div class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        </div>
+                        <p>Klik atau Seret Gambar Disini</p>
+                        <span>Mendukung: JPG, PNG, WEBP</span>
+                    </div>
+
+                    <div id="status" class="status-message hidden">
+                        <div class="spinner"></div>
+                        <p>Memproses gambar...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="result-section" class="result-section hidden">
+                <div class="result-card glass">
+                    <div class="result-header">
+                        <h3>Hasil Verifikasi</h3>
+                        <button id="reset-btn" class="btn-secondary">Mulai Ulang</button>
+                    </div>
+                    
+                    <div class="result-content">
+                        <div class="qr-container">
+                            <div id="new-qrcode"></div>
+                            <button id="download-btn" class="btn-primary">Unduh QR Code</button>
+                        </div>
+                        <div class="info-container">
+                            <div class="info-group">
+                                <label>URL Terdeteksi</label>
+                                <div class="url-box">
+                                    <code id="scanned-url"></code>
+                                </div>
+                            </div>
+                            <div class="success-badge">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span>QR Code Berhasil Dibuat Ulang dengan Logo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Pemerintah Kabupaten Minahasa Selatan. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <canvas id="qr-canvas" style="display:none;"></canvas>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
