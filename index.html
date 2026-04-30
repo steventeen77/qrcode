@@ -24,16 +24,31 @@
         <main>
             <section class="hero glass">
                 <div class="hero-content">
-                    <h2>Verifikasi Kartu ASN</h2>
-                    <p>Unggah foto kartu ASN Anda untuk membaca QR Code dan membuat ulang dengan branding resmi.</p>
+                    <h2>Layanan QR Code ASN</h2>
+                    <p>Pilih metode untuk membuat QR Code resmi dengan branding Kabupaten Minahasa Selatan.</p>
                     
-                    <div class="upload-zone" id="drop-zone">
-                        <input type="file" id="file-input" accept="image/*" hidden>
-                        <div class="upload-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="manual">1. Input Manual</button>
+                        <button class="tab-btn" data-tab="verify">2. Verifikasi Kartu</button>
+                    </div>
+
+                    <div id="manual-tab" class="tab-content active">
+                        <div class="manual-input-group">
+                            <input type="url" id="manual-url" placeholder="Masukkan URL kartu ASN Anda..." class="glass-input">
+                            <button id="generate-btn" class="btn-primary">Buat QR Code</button>
                         </div>
-                        <p>Klik atau Seret Gambar Disini</p>
-                        <span>Mendukung: JPG, PNG, WEBP</span>
+                        <p class="input-hint">Masukkan URL lengkap yang tertera atau hasil scan sebelumnya.</p>
+                    </div>
+
+                    <div id="verify-tab" class="tab-content">
+                        <div class="upload-zone" id="drop-zone">
+                            <input type="file" id="file-input" accept="image/*" hidden>
+                            <div class="upload-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            </div>
+                            <p>Klik atau Seret Foto Kartu ASN Disini</p>
+                            <span>Mendukung: JPG, PNG, WEBP</span>
+                        </div>
                     </div>
 
                     <div id="status" class="status-message hidden">

@@ -14,26 +14,36 @@ const downloadBtn = document.getElementById('download-btn');
 const qrCanvas = document.getElementById('qr-canvas');
 const ctx = qrCanvas.getContext('2d');
 
+// New Elements
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+const manualUrlInput = document.getElementById('manual-url');
+const generateBtn = document.getElementById('generate-btn');
+const heroContent = document.querySelector('.hero-content');
+
 // --- Events ---
 
-// Click to upload
-dropZone.addEventListener('click', () => fileInput.click());
-
-// Drag & Drop
-dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('drag-over');
+// Tab Switching
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(`${targetTab}-tab`).classList.add('active');
+    });
 });
 
-dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('drag-over');
-});
-
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('drag-over');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) handleFile(files[0]);
+// Manual Generate
+generateBtn.addEventListener('click', () => {
+    const url = manualUrlInput.value.trim();
+    if (!url) {
+        alert('Tolong masukkan URL yang valid.');
+        return;
+    }
+    generateBrandedQR(url);
 });
 
 // File input change
@@ -42,11 +52,11 @@ fileInput.addEventListener('change', (e) => {
 });
 
 // Reset
-resetBtn.addEventListener('reset', () => window.location.reload());
 resetBtn.addEventListener('click', () => {
     resultSection.classList.add('hidden');
-    dropZone.parentElement.classList.remove('hidden');
+    heroContent.classList.remove('hidden');
     fileInput.value = '';
+    manualUrlInput.value = '';
 });
 
 // Download
@@ -73,6 +83,22 @@ downloadBtn.addEventListener('click', () => {
 
 // --- Logic ---
 
+// Add back dropZone listeners that were accidentally removed in previous step
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+});
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) handleFile(files[0]);
+});
+
 function handleFile(file) {
     if (!file.type.startsWith('image/')) {
         alert('Tolong unggah file gambar yang valid.');
@@ -96,7 +122,7 @@ function handleFile(file) {
             });
 
             if (code) {
-                processScannedData(code.data);
+                generateBrandedQR(code.data);
             } else {
                 showStatus(false);
                 alert('QR Code tidak ditemukan dalam gambar. Pastikan gambar cukup terang dan QR Code terlihat jelas.');
@@ -107,8 +133,9 @@ function handleFile(file) {
     reader.readAsDataURL(file);
 }
 
-function processScannedData(url) {
-    statusMsg.querySelector('p').innerText = 'Membuat ulang QR Code...';
+function generateBrandedQR(url) {
+    showStatus(true);
+    statusMsg.querySelector('p').innerText = 'Membuat QR Code...';
     
     // Clear previous QR
     newQrContainer.innerHTML = '';
@@ -127,24 +154,24 @@ function processScannedData(url) {
         
         // Logo options
         logo: "/logo-minsel.png",
-        logoWidth: 160, // Increased as requested
+        logoWidth: 160, 
         logoHeight: 160,
         logoBackgroundColor: '#ffffff',
         logoBackgroundTransparent: false,
         
         // Aesthetics
-        dotScale: 1, // Full dots are safer for small scale reading
-        quietZone: 40, // More margin to prevent background interference
+        dotScale: 1, 
+        quietZone: 40, 
         quietZoneColor: "rgba(0,0,0,0)"
     };
 
     // Instantiate QRCode
     new QRCode(newQrContainer, options);
 
-    // Wait for generation to finish (it's sync but rendering might take a bit)
+    // Wait for generation to finish
     setTimeout(() => {
         showStatus(false);
-        dropZone.parentElement.classList.add('hidden');
+        heroContent.classList.add('hidden');
         resultSection.classList.remove('hidden');
     }, 800);
 }
@@ -152,9 +179,13 @@ function processScannedData(url) {
 function showStatus(show) {
     if (show) {
         statusMsg.classList.remove('hidden');
-        dropZone.classList.add('hidden');
+        document.getElementById('manual-tab').classList.add('hidden');
+        document.getElementById('verify-tab').classList.add('hidden');
+        document.querySelector('.tabs').classList.add('hidden');
     } else {
         statusMsg.classList.add('hidden');
-        dropZone.classList.remove('hidden');
+        const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+        document.getElementById(`${activeTab}-tab`).classList.remove('hidden');
+        document.querySelector('.tabs').classList.remove('hidden');
     }
 }
