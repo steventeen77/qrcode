@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRCODE ASN MINSEL - Verifikasi Kartu ASN</title>
+    <title>QR Code Generator - ASN Kabupaten Minahasa Selatan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -24,8 +24,8 @@
         <main>
             <section class="hero glass">
                 <div class="hero-content">
-                    <h2>Layanan QR Code ASN</h2>
-                    <p>Pilih metode untuk membuat QR Code resmi dengan branding Kabupaten Minahasa Selatan.</p>
+                    <h2>QR Code Generator</h2>
+                    <p>Buat QR Code resmi dengan branding Kabupaten Minahasa Selatan melalui input manual atau pemindaian kartu.</p>
                     
                     <div class="tabs">
                         <button class="tab-btn active" data-tab="manual">1. Input Manual</button>
@@ -34,10 +34,10 @@
 
                     <div id="manual-tab" class="tab-content active">
                         <div class="manual-input-group">
-                            <input type="url" id="manual-url" placeholder="Masukkan URL kartu ASN Anda..." class="glass-input">
+                            <input type="url" id="manual-url" placeholder="Masukkan URL Untuk dibuat QR Code." class="glass-input">
                             <button id="generate-btn" class="btn-primary">Buat QR Code</button>
                         </div>
-                        <p class="input-hint">Masukkan URL lengkap yang tertera atau hasil scan sebelumnya.</p>
+                        <p class="input-hint">Ketik atau tempelkan URL lengkap yang ingin Anda jadikan QR Code.</p>
                     </div>
 
                     <div id="verify-tab" class="tab-content">
@@ -61,7 +61,7 @@
             <section id="result-section" class="result-section hidden">
                 <div class="result-card glass">
                     <div class="result-header">
-                        <h3>Hasil Verifikasi</h3>
+                        <h3>Hasil QR Code</h3>
                         <button id="reset-btn" class="btn-secondary">Mulai Ulang</button>
                     </div>
                     
@@ -72,7 +72,7 @@
                         </div>
                         <div class="info-container">
                             <div class="info-group">
-                                <label>URL Terdeteksi</label>
+                                <label>URL Sumber</label>
                                 <div class="url-box">
                                     <code id="scanned-url"></code>
                                 </div>
